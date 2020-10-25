@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udagram-api-feed
+  labels:
+    app: udagram-api-feed
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: udagram-api-feed
+  template:
+    metadata:
+      labels:
+        app: udagram-api-feed
+    spec:
+      containers:
+      - name: udagram-api-feed
+        image: newair007/udagram-api-feed
+        ports:
+        - containerPort: 80
+        env:
+          - name: POSTGRES_USERNAME
+            value: "postgres"
+          - name: POSTGRES_PASSWORD
+            value: ""
+          - name: POSTGRES_DB
+            value: "postgres"
+          - name: POSTGRES_HOST
+            value: "udacity-monolith.cffyih2b8zti.us-east-1.rds.amazonaws.com"
+          - name: aws_region
+            value: "postgres"
+          - name: AWS_PROFILE
+            value: ""
+          - name: AWS_BUCKET
+            value: "postgres"
+          - name: JWT_SECRET
+            value: ""
+          - name: PORT
+            value: "8081"
